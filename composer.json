@@ -1,5 +1,5 @@
 {
-    "name": "nordigen/nordigen-php",
+    "name": "Officegest/nordigen-php",
     "description": "Nordigen official API client for PHP",
     "type": "library",
     "authors": [
