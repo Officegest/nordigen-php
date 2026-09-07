@@ -39,6 +39,9 @@ class ExceptionHandler
     {
         $content = $response->getBody()->getContents();
         $json = json_decode($content, true);
+        if (!is_array($json)) {
+            $json = [];
+        }
         $errorType = self::getExceptionType($json);
         $summary = $json['summary'] ?? '';
         $detail = $json['detail'] ?? '';

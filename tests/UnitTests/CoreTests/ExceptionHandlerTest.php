@@ -39,4 +39,20 @@ class ExceptionHandlerTest extends TestCase
         $this->expectException(NordigenException::class);
         ExceptionHandler::handleException($response);
     }
+
+    /**
+     * @covers \Nordigen\NordigenPHP\Exceptions\ExceptionHandler
+     */
+    public function testNordigenExceptionIsThrownForNonJsonResponse(): void
+    {
+        $response = new Response(502, ['Content-Type' => 'text/html'], '<html>Bad Gateway</html>');
+
+        try {
+            ExceptionHandler::handleException($response);
+            $this->fail('Expected a NordigenException to be thrown.');
+        } catch (NordigenException $exception) {
+            $this->assertSame(502, $exception->getCode());
+            $this->assertSame($response, $exception->getResponse());
+        }
+    }
 }
